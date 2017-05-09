@@ -53,14 +53,37 @@
 					</div>
 				</section>
 
+				<section class="box special features">
+					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+					<div>
+					<h3>Data engineering</h3>
+					<p>For the sake of our analysis, data engineering is very heavy for this prediction. Indeed, we have to gather any set of 6 hours in a row and their associated label. Let's go through the successive steps of our data preparation.
+						<ol type="square">
+						    <li> New hour indexing</li>
+					<li> Data engineering (6 hours in a row)</li>
+					<li> One hot encoding of the categorical variable</li>
+					<li>Dataset balancing</li>
+					<li>Train/test separation</li>
+					<ol/>
+
+					<br/>
+					Hereafter, an overview of the final dataset we will use for the accidents forecasting.
+
+						</p>
+
+				</div>
+				</section>
+
+
+
 				<div class="row">
 					<div class="6u 12u(narrower)">
 
 						<section class="box special">
 							<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
-							<h3>Machine learning method 1</h3>
-							<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
-
+							<h3>Logistic Regression Classification</h3>
+							<p>We want to run a classification task from 30 features: 6 features describing the 6 previous hours of the dataset, as well as the one-hot-encoded category for the hour of the day we are looking at. We applied a Logistic Regression to this dataset, in order to most relevant features here. This method gave us an accuracy of approximately 62 % (details given in the explanatory notebook). Hereafter a visualization of our accuracy on the 30 most populated zipcodes. </p>
+						<span class="image featured"><img src="images/logregviz.png" alt="" /></span>
 						</section>
 
 					</div>
@@ -68,9 +91,10 @@
 
 						<section class="box special">
 							<span class="image featured"><img src="images/pic03.jpg" alt="" /></span>
-							<h3>Machine learning method 2</h3>
-							<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+							<h3>Support Vector Machine</h3>
 
+							<p>We tried to improve our prediction applying support vector machine classification. Though, the results were not better, with still an accuracy around 63 %. We also implemented a lot of other methods such as Adaboost.M1 classifier applied to decision trees (as weak classifier). We also tried K-Nearest Neighbors, Random Forest, as well as some discriminant analysis. Though, SVM were still the best option, despite a very long computation time. Hereafter, our predictions on the 30 most populated zipcodes.</p>
+						<span class="image featured"><img src="images/logregviz.png" alt="" /></span>
 						</section>
 
 					</div>
@@ -79,16 +103,8 @@
 				<section class="box special features">
 					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
 					<div>
-					<h3>Model comparisons bibibibibi</h3>
-					<p>Insert here: visualisations of results on several zipcodes</p>
-				</div>
-				</section>
-
-				<section class="box special features">
-					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-					<div>
 					<h3>D3 visualization predictions</h3>
-					<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
+					<p>We are still aiming to apply our machine learning experiments to actual improvement of New-York security. Let's simulate a real-life case and visualize it. We will pick one zipcode (XXXXX, in Brooklyn), and try to simulate a whole day. Predicting from the actual 6 previous hours, we will compare our predictions (hour by hour), and what actually happened on that day. D3 VIZ TO INSERT BELOW</p>
 				</div>
 				</section>
 
