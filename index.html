@@ -13,6 +13,8 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+		<script type="text/javascript" src="d3/d3.js"></script>
+		<link rel="stylesheet" href="css/style-custom.css" />
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -44,18 +46,67 @@
 						<p>We believe that looking back at all the accidents that have happened in New-York, knowing exactly where it happened, can help a lot in terms of prevention. Indeed a good visualization could greatly assist the police department and give them an insight on where they need to be focused the most.
 							That is why, to go further we worked on our data in order to be able to build a classification model, detailed below.</p>
 					</header>
-					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
 				</section>
 
 				<section class="box special features">
 					<div>
 					<h3>D3 visualization</h3>
-					<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
+					<p>First, we get a quick insight into our dataset by visualizing the accidents projected on a map. We will only considered accidents 
+					happening in New York in 2015. For each hour of the day (from midnight to 23hours) we group all the accidents of 2015 and display them
+					on the map.</p>
 					</div>
+					
+					<div>
+					<h3>Choose the hour of the day you want to display.</h3>
+					</div>
+					
+					<div class="btn-group" style="width:100%">
+						<button style="width:4.16%" id="accidents2015_0" value="0">00h</button>
+						<button style="width:4.16%" id="accidents2015_1" value="1">01h</button>
+						<button style="width:4.16%" id="accidents2015_2" value="2">02h</button>
+						<button style="width:4.16%" id="accidents2015_3" value="3">03h</button>
+						<button style="width:4.16%" id="accidents2015_4" value="4">04h</button>
+						<button style="width:4.16%" id="accidents2015_5" value="5">05h</button>						
+						<button style="width:4.16%" id="accidents2015_6" value="6">06h</button>
+						<button style="width:4.16%" id="accidents2015_7" value="7">07h</button>
+						<button style="width:4.16%" id="accidents2015_8" value="8">08h</button>						
+						<button style="width:4.16%" id="accidents2015_9" value="9">09h</button>
+						<button style="width:4.16%" id="accidents2015_10" value="10">10h</button>
+						<button style="width:4.16%" id="accidents2015_11" value="11">11h</button>
+						<button style="width:4.16%" id="accidents2015_12" value="12">12h</button>
+						<button style="width:4.16%" id="accidents2015_13" value="13">13h</button>
+						<button style="width:4.16%" id="accidents2015_14" value="14">14h</button>
+						<button style="width:4.16%" id="accidents2015_15" value="15">15h</button>
+						<button style="width:4.16%" id="accidents2015_16" value="16">16h</button>
+						<button style="width:4.16%" id="accidents2015_17" value="17">17h</button>
+						<button style="width:4.16%" id="accidents2015_18" value="18">18h</button>
+						<button style="width:4.16%" id="accidents2015_19" value="19">19h</button>
+						<button style="width:4.16%" id="accidents2015_20" value="20">20h</button>
+						<button style="width:4.16%" id="accidents2015_21" value="21">21h</button>
+						<button style="width:4.16%" id="accidents2015_22" value="22">22h</button>
+						<button style="width:4.16%" id="accidents2015_23" value="23">23h</button>
+					</div>
+					
+
+					<div>
+					<button class='button_toggle' id='button_animate'>Animate throughout the entire day!</button>
+					</div>
+					
+					
+					<div id="d3viz1"></div>
+					
+					<p>The accidents repartition is very dense in Manhattan as expected, while it is more sparse in the other boroughs. Simple observations
+					can be done. For example, there are way more accidents during working hours (9am or 18am) than during non-working hours. An other example: 
+					in the early night (around 1am or 2am) it seems to be more accidents in Manhattan, probably because of the
+					active night life. <br />
+					The red points correspond to deadly accidents and they are quite spread around the city. Manhattan seems to have 
+					less deadly accidents though. <br />
+					This map of the accidents give a good insight into the data. You can play around with the hour buttons and start noticing some correlations
+					between the number of accidents, their repartition and the hour of the day. We will base our analysis upon these observations, and
+					we will try to predict the probable location of the next accidents.</p>
 				</section>
 
 				<section class="box special features">
-					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
 					<div>
 					<h3>Data engineering</h3>
 					<p>For the sake of our analysis, data engineering is very heavy for this prediction. Indeed, we have to gather any set of 6 hours in a row and their associated label. Let's go through the successive steps of our data preparation.
@@ -82,7 +133,6 @@
 					<div class="6u 12u(narrower)">
 
 						<section class="box special">
-							<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
 							<h3>Logistic Regression Classification</h3>
 							<p>We want to run a classification task from 30 features: 6 features describing the 6 previous hours of the dataset, as well as the one-hot-encoded category for the hour of the day we are looking at. We applied a Logistic Regression to this dataset, in order to most relevant features here. This method gave us an accuracy of approximately 62 % (details given in the explanatory notebook). Hereafter a visualization of our accuracy on the 30 most populated zipcodes. </p>
 						<span class="image featured"><img src="images/logregviz.png" alt="" /></span>
@@ -92,7 +142,6 @@
 					<div class="6u 12u(narrower)">
 
 						<section class="box special">
-							<span class="image featured"><img src="images/pic03.jpg" alt="" /></span>
 							<h3>Support Vector Machine</h3>
 
 							<p>We tried to improve our prediction applying support vector machine classification. Though, the results were not better, with still an accuracy around 63 %. We also implemented a lot of other methods such as Adaboost.M1 classifier applied to decision trees (as weak classifier). We also tried K-Nearest Neighbors, Random Forest, as well as some discriminant analysis. Though, SVM were still the best option, despite a very long computation time. Hereafter, our predictions on the 30 most populated zipcodes.</p>
@@ -103,7 +152,6 @@
 				</div>
 
 				<section class="box special features">
-					<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
 					<div>
 					<h3>D3 visualization predictions</h3>
 					<p>We are still aiming to apply our machine learning experiments to actual improvement of New-York security. Let's simulate a real-life case and visualize it. We will pick the 30 most accidents-populated zicodes, and try to simulate a whole day. Predicting from the actual 6 previous hours, we will compare our predictions (hour by hour), and what actually happened on that day. D3 VIZ TO INSERT BELOW</p>
@@ -111,5 +159,212 @@
 				</section>
 
 			</section>
+			
+			
+			
+			
+			
+		<script type="text/javascript">
+		
+		var w = 500;
+		var h = 500;
+		
+		var hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+		var current_hour = hours[0];
+		
+		var svg = d3.select("#d3viz1")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+
+		d3.json("nyc_zipcode.geojson", function(error, map_data){
+
+			if (error) throw error;
+			// method for calculating the right projection taken from Mike Bostock's 
+			// answer here: http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object#14691788
+			var projection = d3.geo.mercator()
+				.scale(1) 
+				.translate([0,0]);
+
+			var path = d3.geo.path()
+				.projection(projection);
+
+			var bbox = path.bounds(map_data),
+				scale = .95 / Math.max((bbox[1][0] - bbox[0][0]) / w, (bbox[1][1] - bbox[0][1]) / h),
+				translator = [(w - scale * (bbox[1][0] + bbox[0][0])) / 2, (h - scale * (bbox[1][1] + bbox[0][1])) / 2];
+			
+			projection.scale(scale)
+				.translate(translator);
+
+			// create the map
+			svg.selectAll("path")
+				.data(map_data.features)
+				.enter()
+				.append("path")
+				.attr("d", path)
+				.style("fill", "rgb(240, 239, 244)")
+				.style("stroke", "rgb(180,180,180)")
+				//.style("stroke-width", 5)
+				;
+					
+				
+			d3.json("boroughs.geojson", function(map_data_borough) {
+				
+				// NAMES OF THE BOROUGHS
+				svg.selectAll("text")
+				.data(map_data_borough.features)
+				.enter()
+				.append("text")
+				.attr("fill", "black")
+				.attr("transform", function(d) { 
+					var centroid = path.centroid(d);
+					return "translate(" + centroid[0] + "," + centroid[1] + ")"
+				})
+				.attr("text-anchor", "middle")
+				.attr("opacity", 0.6)
+				.text(function(d) {
+					return d.properties.BoroName;
+				});	
+			});
+				
+
+			//////// DISPLAYING THE POINTS ////////////
+			
+			
+			d3.csv('data/accidents2015_'+hours[0]+'.csv', function(data) {
+			
+				d3.select("#accidents2015_"+hours[0]).style("background-color", "#3e8e41");
+				
+				svg.selectAll("circle")
+			   .data(data)
+			   .enter()
+			   .append("circle")
+			   .attr("cx", function(d) {
+				   return projection([d.lon, d.lat])[0];
+			   })
+			   .attr("cy", function(d) {
+				   return projection([d.lon, d.lat])[1];
+			   })
+			   .attr("r", function(d){if (d.killed>0) {return 4;}
+													else {return 2;}})
+			   .style("fill", function(d){if (d.killed>0) {return "red";}
+										else {return "black";}})
+			   .style("opacity",function(d){if (d.killed>0) {return 1;}
+														else {return 0.2;}});
+				
+				
+			});
+			
+			
+			
+			var display_accidents_recursif = function(h) {
+				if (h<24) {
+					d3.csv('data/accidents2015_'+hours[h]+'.csv', function(data) {
+							
+						points = svg.selectAll("circle").data(data);
+						
+						points
+							.attr("cx", function(d) {
+								return projection([d.lon, d.lat])[0];
+							})
+							.attr("cy", function(d) {
+								return projection([d.lon, d.lat])[1];
+							})
+							.attr("r", function(d){if (d.killed>0) {return 4;}
+													else {return 2;}})
+							.style("fill", function(d){if (d.killed>0) {return "red";}
+														else {return "black";}})
+							.style("opacity", function(d){if (d.killed>0) {return 1;}
+														else {return 0.2;}});
+							
+						points.enter()
+							.append("circle")
+							.attr("cx", function(d) {
+								return projection([d.lon, d.lat])[0];
+							})
+							.attr("cy", function(d) {
+								return projection([d.lon, d.lat])[1];
+							})
+							.attr("r", function(d){if (d.killed>0) {return 4;}
+													else {return 2;}})
+							.style("fill", function(d){if (d.killed>0) {return "red";}
+										else {return "black";}})
+							.style("opacity", function(d){if (d.killed>0) {return 1;}
+														else {return 0.2;}});
+							
+						points.exit().remove();
+					
+						d3.select("#accidents2015_"+current_hour).transition().style("background-color", "white");
+						current_hour=hours[h]
+						d3.select("#accidents2015_"+hours[h]).transition().style("background-color", "#3e8e41");
+						
+
+						setTimeout(function(){display_accidents_recursif(h+1)},800);
+					});
+				}
+			};
+			
+			var display_accidents_hour = function(filename, hour) {
+					d3.csv('data/'+filename+'.csv', function(data) {
+							
+						points = svg.selectAll("circle").data(data);
+						
+						points
+							.attr("cx", function(d) {
+								return projection([d.lon, d.lat])[0];
+							})
+							.attr("cy", function(d) {
+								return projection([d.lon, d.lat])[1];
+							})
+							.attr("r", function(d){if (d.killed>0) {return 4;}
+													else {return 2;}})
+							.style("fill", function(d){if (d.killed>0) {return "red";}
+														else {return "black";}})
+							.style("opacity", function(d){if (d.killed>0) {return 1;}
+														else {return 0.2;}});
+							
+						points.enter()
+							.append("circle")
+							.attr("cx", function(d) {
+								return projection([d.lon, d.lat])[0];
+							})
+							.attr("cy", function(d) {
+								return projection([d.lon, d.lat])[1];
+							})
+							.attr("r", function(d){if (d.killed>0) {return 4;}
+													else {return 2;}})
+							.style("fill", function(d){if (d.killed>0) {return "red";}
+										else {return "black";}})
+							.style("opacity", function(d){if (d.killed>0) {return 1;}
+														else {return 0.2;}});
+							
+						points.exit().remove();
+
+						d3.select("#accidents2015_"+current_hour).style("background-color", "white");
+						current_hour = parseInt(hour)
+						d3.select("#accidents2015_"+current_hour).style("background-color", "#3e8e41");
+						
+
+					});
+			};
+			
+			
+			// WHEN CLICKING ON A BUTTON TO CHANGE THE HOUR
+			d3.selectAll("button").on("click", function(d) {
+				
+				display_accidents_hour(d3.select(this).attr("id"), d3.select(this).attr("value"));
+			});
+			
+			
+			// WHEN CLICKING ON THE TOGGLE BUTTON FOR ANIMATION
+			d3.select("#button_animate").on("click", function(d) {
+				display_accidents_recursif(0);
+			});
+
+			
+		});
+		
+
+        </script>
 	</body>
 </html>
