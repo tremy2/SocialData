@@ -89,7 +89,7 @@
 					
 
 					<div>
-					<button class='button_toggle' id='button_animate'>Animate throughout the entire day!</button>
+					<button class='button_toggle' id='button_animate'>Animate throughout the entire day! (from 6am to 5am the next day)</button>
 					</div>
 					
 					
@@ -106,6 +106,16 @@
 					we will try to predict the probable location of the next accidents.</p>
 				</section>
 
+				
+				<section class="box special features">
+					<div>
+					<h3>Aim of the project</h3>
+					
+
+					</div>
+				</section>
+				
+				
 				<section class="box special features">
 					<div>
 					<h3>Data engineering</h3>
@@ -169,7 +179,7 @@
 		var w = 500;
 		var h = 500;
 		
-		var hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+		var hours = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0,1,2,3,4,5,];
 		var current_hour = hours[0];
 		
 		var svg = d3.select("#d3viz1")
